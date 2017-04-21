@@ -1,0 +1,28 @@
+body {
+	width: 100%;
+	margin: 0 auto;
+}
+
+h1 {
+	color: #095;
+}
+
+.main h1, h2, p {
+	color: #095;
+}
+
+.main {
+	background: #d8d8d8;
+}
+
+.one {
+	background: #717171;
+}
+
+.two {
+	background: #FFE3AA;
+}
+
+.three {
+	background: #717171;
+}
