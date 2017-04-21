@@ -3,26 +3,45 @@ body {
 	margin: 0 auto;
 }
 
-h1 {
-	color: #095;
+.main {
+	padding: 100px 0;
+	margin-top: 125px;
+	margin-bottom: 25px;
 }
 
-.main h1, h2, p {
-	color: #095;
+h3 {
+	border-bottom: 1px solid black;
 }
 
 .main {
-	background: #d8d8d8;
+	margin-bottom: 0;
 }
 
-.one {
-	background: #717171;
+section {
+	margin-top: 0;
+	padding-top: 25px;
+	padding-bottom: 25px;
 }
 
-.two {
-	background: #FFE3AA;
+.current {
+	border: 1px solid black;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
-.three {
-	background: #717171;
+.current h2 {
+	padding-top: 15px;
+}
+
+.current p {
+	font-size: 28px;
+}
+
+
+.forecast {
+	border: 1px solid black;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }

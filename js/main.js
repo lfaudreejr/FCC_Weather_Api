@@ -1,6 +1,7 @@
 window.onload = (function()
 {
-
+	"use strict";
+	
   function get(url)
   {
     return new Promise(function(resolve, reject)
@@ -47,7 +48,7 @@ window.onload = (function()
           console.log(location);
           city.textContent = location.name + ", " + location.sys.country;
           icon.setAttribute("src", "http:openweathermap.org/img/w/" + location.weather[0].icon + ".png");
-          p.innerHTML = "You current temp: " + location.main.temp + "&deg;F";
+          p.innerHTML = "Your current temp: " + location.main.temp + "&deg;F";
           description.textContent = "'" + location.weather[0].description + "'";
         });
 
@@ -56,8 +57,18 @@ window.onload = (function()
         .then(function(forecast)
         {
           console.log(forecast);
-          var one = document.getElementById('f_one');
-          one.innerHTML = "The temperature for tomorrow is: " + forecast.list[1].main.temp + " &deg;F";
+          var next = document.getElementById('next_day');
+          var next_icon = document.getElementById('next_icon');
+          var second_day = document.getElementById('second_day');
+          var second_icon = document.getElementById('second_icon');
+          var third_day = document.getElementById('third_day');
+          var third_icon = document.getElementById('third_icon');
+          next.innerHTML = "The temperature for tomorrow is: " + forecast.list[1].main.temp + " &deg;F";
+          next_icon.setAttribute("src", "http:openweathermap.org/img/w/" + forecast.list[1].weather[0].icon + ".png");
+          second_day.innerHTML = "The temperature for the day after tomorrow will be: " + forecast.list[2].main.temp + " &deg;F";
+          second_icon.setAttribute("src", "http:openweathermap.org/img/w/" + forecast.list[2].weather[0].icon + ".png");
+          third_day.innerHTML = "The temperature for the third day will be: " + forecast.list[3].main.temp + " &deg;F";
+          third_icon.setAttribute("src", "http:openweathermap.org/img/w/" + forecast.list[3].weather[0].icon + ".png");
         });
       });
 
