@@ -36,48 +36,63 @@ window.onload = (function()
     var lat;
     var long;
 
-    if(navigator.geolocation)
+    if(!navigator.geolocation)
     {
-      navigator.geolocation.getCurrentPosition(function(position){
-        lat = position.coords.latitude;
-        long = position.coords.longitude;
+      alert("Geolocation not supported by this browser");
+      return;
+    }
+    
+    navigator.geolocation.getCurrentPosition(success, error);
 
-        var location = get("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&appid=283fdf4c8b4ef4052398942d7fcc1cb9")
-        .then(function(location)
-        {
+    function success(position)
+    {
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+        var location = get("https://api.apixu.com/v1/current.json?key=1391c71edd784b36b89143112172104&q=" + lat + "," + long)
+        .then(
+          function(location)
+          {
           console.log(location);
-          city.textContent = location.name + ", " + location.sys.country;
-          icon.setAttribute("src", "http:openweathermap.org/img/w/" + location.weather[0].icon + ".png");
-          p.innerHTML = "Your current temp: " + location.main.temp + "&deg;F";
-          description.textContent = "'" + location.weather[0].description + "'";
-        });
+          city.textContent = location.location.name + ", " + location.location.region;
+          icon.setAttribute("src", "https://" + location.current.condition.icon);
+          p.innerHTML = location.current.temp_f + "&deg;F";
+          description.textContent = "'" + location.current.condition.text + "'";
+          },
+          function(err){
+            alert("Connection refused");
+          }
+        );
 
 
-        var forecast = get("http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + long + "&cnt=4&units=imperial&appid=283fdf4c8b4ef4052398942d7fcc1cb9")
-        .then(function(forecast)
-        {
-          console.log(forecast);
-          var next = document.getElementById('next_day');
-          var next_icon = document.getElementById('next_icon');
-          var second_day = document.getElementById('second_day');
-          var second_icon = document.getElementById('second_icon');
-          var third_day = document.getElementById('third_day');
-          var third_icon = document.getElementById('third_icon');
-          next.innerHTML = "The temperature for tomorrow is: " + forecast.list[1].main.temp + " &deg;F";
-          next_icon.setAttribute("src", "http:openweathermap.org/img/w/" + forecast.list[1].weather[0].icon + ".png");
-          second_day.innerHTML = "The temperature for the day after tomorrow will be: " + forecast.list[2].main.temp + " &deg;F";
-          second_icon.setAttribute("src", "http:openweathermap.org/img/w/" + forecast.list[2].weather[0].icon + ".png");
-          third_day.innerHTML = "The temperature for the third day will be: " + forecast.list[3].main.temp + " &deg;F";
-          third_icon.setAttribute("src", "http:openweathermap.org/img/w/" + forecast.list[3].weather[0].icon + ".png");
-        });
-      });
-
+        var forecast = get("https://api.apixu.com/v1/forecast.json?key=1391c71edd784b36b89143112172104&q=" + lat + "," + long + "&days=4")
+        .then(
+          function(forecast)
+          {
+            console.log(forecast);
+            var next = document.getElementById('next_day');
+            var next_icon = document.getElementById('next_icon');
+            var second_day = document.getElementById('second_day');
+            var second_icon = document.getElementById('second_icon');
+            var third_day = document.getElementById('third_day');
+            var third_icon = document.getElementById('third_icon');
+            next.innerHTML = "Tomorrow: " + forecast.forecast.forecastday[1].day.avgtemp_f + " &deg;F";
+            next_icon.setAttribute("src", "https://" + forecast.forecast.forecastday[1].day.condition.icon);
+            second_day.innerHTML = "Day After: " + forecast.forecast.forecastday[2].day.avgtemp_f + " &deg;F";
+            second_icon.setAttribute("src", "https://" + forecast.forecast.forecastday[2].day.condition.icon);
+            third_day.innerHTML = "Third day: " + forecast.forecast.forecastday[3].day.avgtemp_f + " &deg;F";
+            third_icon.setAttribute("src", "https://" + forecast.forecast.forecastday[3].day.condition.icon);
+          },
+          function(err){
+            alert("Connection refused");
+          }
+        );
     }
-    else
-    {
-      p.textContent("Geolocation not supported by this browser");
-    }
+
+
+      function error(error)
+      {
+        alert("Unable to retrieve your location");
+      }
+
   })();
-
 })
-
