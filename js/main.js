@@ -45,16 +45,13 @@ window.onload = function() {
 
     var getCurrentWeather = function getCurrentWeather() {
       return get(
-        "https://api.apixu.com/v1/current.json?key=1391c71edd784b36b89143112172104&q=" +
-          lat +
-          "," +
-          long
+        "https://api.apixu.com/v1/current.json?key=key&q=" + lat + "," + long
       );
     };
 
     var getForecast = function getForecast() {
       return get(
-        "https://api.apixu.com/v1/forecast.json?key=1391c71edd784b36b89143112172104&q=" +
+        "https://api.apixu.com/v1/forecast.json?key=key&q=" +
           lat +
           "," +
           long +
