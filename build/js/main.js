@@ -64,7 +64,6 @@ window.onload = function() {
         weatherObj.current = results.current;
         weatherObj.forecast = results.forecast.forecastday;
         weatherObj.location = results.location;
-        console.log("Weather: ", weatherObj);
         setCurrentWeather();
         setForecast();
       });

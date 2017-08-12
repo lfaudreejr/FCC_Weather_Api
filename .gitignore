@@ -1,7 +1,6 @@
 
 *.json
-node_modules
-
+node_modules/
 CNAME
-
 .ENV
+dist/

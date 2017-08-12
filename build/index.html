@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" lang="en">
+  <title>Show Local Weather</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/main.min.css">
+</head>
+
+<body>
+
+  <header class="main container-fluid bg-primary text-white">
+    <h1 class="display-4 text-center">Larry's Weather App</h1>
+  </header>
+
+  <section class="container-fluid bg-faded">
+    <div class="row text-center justify-content-around">
+      <div class="current col-sm-4 bg-success text-white">
+        <h3>Current Temperature</h3>
+        <h2 id="city"></h2>
+        <div class="text-center">
+          <p id="temp" class="d-inline"></p>
+          <img id="icon" class="d-inline">
+        </div>
+        <p id="description"></p>
+      </div>
+      <div class="col-sm-7 forecast bg-success text-white">
+        <h3>3-day Forecast</h3>
+        <div class="container">
+          <p id="next_day" class="d-inline"></p>
+          <img id="next_icon" class="d-inline">
+          <p id="next_description"></p>
+        </div>
+        <div class="container">
+          <p id="second_day" class="d-inline"></p>
+          <img id="second_icon" class="d-inline">
+          <p id="second_description"></p>
+        </div>
+        <div class="container">
+          <p id="third_day" class="d-inline"></p>
+          <img id="third_icon" class="d-inline">
+          <p id="third_description"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
