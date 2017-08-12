@@ -36,7 +36,7 @@ window.onload = function() {
     function success(position) {
       lat = position.coords.latitude;
       long = position.coords.longitude;
-      makeWeatherObj();
+      makeWeatherObj("F");
     }
 
     function error(error) {
@@ -64,38 +64,77 @@ window.onload = function() {
         weatherObj.current = results.current;
         weatherObj.forecast = results.forecast.forecastday;
         weatherObj.location = results.location;
-        setCurrentWeather();
-        setForecast();
+        setCurrentWeather("F");
+        setForecast("F");
       });
     }
 
-    function setCurrentWeather() {
-      city.textContent =
-        weatherObj.location.name + ", " + weatherObj.location.region;
-      icon.setAttribute("src", "https://" + weatherObj.current.condition.icon);
-      p.innerHTML = weatherObj.current.temp_f + "&deg;F";
-      description.textContent = "'" + weatherObj.current.condition.text + "'";
+    function setCurrentWeather(measure) {
+      if (measure === "F") {
+        console.log("F");
+        city.textContent =
+          weatherObj.location.name + ", " + weatherObj.location.region;
+        icon.setAttribute(
+          "src",
+          "https://" + weatherObj.current.condition.icon
+        );
+        p.innerHTML = weatherObj.current.temp_f + "&deg;F";
+        description.textContent = "'" + weatherObj.current.condition.text + "'";
+      } else {
+        console.log("C");
+        city.textContent =
+          weatherObj.location.name + ", " + weatherObj.location.region;
+        icon.setAttribute(
+          "src",
+          "https://" + weatherObj.current.condition.icon
+        );
+        p.innerHTML = weatherObj.current.temp_c + "&deg;C";
+        description.textContent = "'" + weatherObj.current.condition.text + "'";
+      }
     }
 
-    function setForecast() {
-      next.innerHTML =
-        "Tomorrow: " + weatherObj.forecast[1].day.maxtemp_f + " &deg;F";
-      next_icon.setAttribute(
-        "src",
-        "https://" + weatherObj.forecast[1].day.condition.icon
-      );
-      second_day.innerHTML =
-        "Day After: " + weatherObj.forecast[2].day.maxtemp_f + " &deg;F";
-      second_icon.setAttribute(
-        "src",
-        "https://" + weatherObj.forecast[2].day.condition.icon
-      );
-      third_day.innerHTML =
-        "Third day: " + weatherObj.forecast[3].day.maxtemp_f + " &deg;F";
-      third_icon.setAttribute(
-        "src",
-        "https://" + weatherObj.forecast[3].day.condition.icon
-      );
+    function setForecast(measure) {
+      if (measure === "F") {
+        console.log("F");
+        next.innerHTML =
+          "Tomorrow: " + weatherObj.forecast[1].day.maxtemp_f + " &deg;F";
+        next_icon.setAttribute(
+          "src",
+          "https://" + weatherObj.forecast[1].day.condition.icon
+        );
+        second_day.innerHTML =
+          "Day After: " + weatherObj.forecast[2].day.maxtemp_f + " &deg;F";
+        second_icon.setAttribute(
+          "src",
+          "https://" + weatherObj.forecast[2].day.condition.icon
+        );
+        third_day.innerHTML =
+          "Third day: " + weatherObj.forecast[3].day.maxtemp_f + " &deg;F";
+        third_icon.setAttribute(
+          "src",
+          "https://" + weatherObj.forecast[3].day.condition.icon
+        );
+      } else {
+        console.log("C");
+        next.innerHTML =
+          "Tomorrow: " + weatherObj.forecast[1].day.maxtemp_c + " &deg;C";
+        next_icon.setAttribute(
+          "src",
+          "https://" + weatherObj.forecast[1].day.condition.icon
+        );
+        second_day.innerHTML =
+          "Day After: " + weatherObj.forecast[2].day.maxtemp_c + " &deg;C";
+        second_icon.setAttribute(
+          "src",
+          "https://" + weatherObj.forecast[2].day.condition.icon
+        );
+        third_day.innerHTML =
+          "Third day: " + weatherObj.forecast[3].day.maxtemp_c + " &deg;C";
+        third_icon.setAttribute(
+          "src",
+          "https://" + weatherObj.forecast[3].day.condition.icon
+        );
+      }
     }
 
     navigator.geolocation.getCurrentPosition(success, error);
@@ -103,5 +142,20 @@ window.onload = function() {
       alert("Geolocation not supported by this browser");
       return;
     }
+
+    var ftocbutton = document.getElementById("ftocbutton");
+    ftocbutton.addEventListener("click", function(event) {
+      if (ftocbutton.textContent === "Celcius") {
+        console.log("Change to C");
+        setCurrentWeather("C");
+        setForecast("C");
+        ftocbutton.textContent = "Fehrenheit";
+      } else {
+        console.log("Change to F");
+        setCurrentWeather("F");
+        setForecast("F");
+        ftocbutton.textContent = "Celcius";
+      }
+    });
   })();
 };
